@@ -5,11 +5,11 @@ Your task is to complete the incomplete function definition. so that it behaves 
 Do not run this file directly.
 Rather, call this function from main.py and run that file.
 """
-
+import random
 
 def guess_number(low, high, num_attempts):
     """
-    This function, named 'guess_number', generates a psudo-random integer in a given range, inclusive.
+    This function, named 'guess_number', generates a pseudo-random integer in a given range, inclusive.
     The user is given a certain number of attempts to guess the correct number.
     The function prints the range to the user and informs the user of how many attempts they have.
     The function asks the user to guess the number the given number of times.
@@ -24,3 +24,26 @@ def guess_number(low, high, num_attempts):
     :param num_attempts: The number of attempts the user is given to guess the correct number.
     :returns: True if the user answers any attempt correctly, False otherwise.
     """
+    
+    answer = random.randint(low, high)
+    
+    print(f"I'm thinking of a number from {low} to {high}. You have {num_attempts} guesses.")
+    
+    for i in range(num_attempts):
+        guess_text = input(f"Guess #{i + 1}: ")
+        
+        try:
+            guess_num = int(guess_text)
+        except ValueError:
+            print("That's not even a number. Try again.")
+            continue
+        
+        if guess_num == answer:
+            print("You got it!")
+            return True
+        else:
+            print("Wrong guess.")
+    
+    print(f"Sorry, you lose. The number was {answer}.")
+    return False
+

@@ -48,6 +48,8 @@ def pick_up_and_move_turtle(t, x, y):
     t.setposition(x, y)  # move the turtle to the target position
     t.pendown()  # put down the turtle's 'pen', so it is ready to draw
 
+    
+
 
 def print_turtle_position(t):
     """
@@ -78,6 +80,25 @@ def draw_square(t, start_x, start_y, length, rotation_direction, fill_color):
     :param rotation_direction: Either 'left' or 'right', indicating the direction the turtle should rotate after it completes each line of the rectangle.
     :param fill_color: The color with which to fill in the area drawn by the turtle.
     """
+    # move to where we want to start drawing
+    pick_up_and_move_turtle(t, start_x, start_y)
+    
+    # set up the fill color
+    t.fillcolor(fill_color)
+    t.begin_fill()
+    
+    # draw 4 sides to make the square
+    for i in range(4):
+        print_turtle_position(t)  # show where we are before each side
+        t.forward(length)
+        
+        # turn either left or right depending on what was passed in
+        if rotation_direction == 'left':
+            t.left(90)
+        else:
+            t.right(90)
+    
+    t.end_fill()
 
 
 def draw_star(
@@ -100,3 +121,38 @@ def draw_star(
     :param initial_rotation_direction: The direction of the first rotation the turtle should make when drawing each point, either 'left' or 'right'.
     :param fill_color: The color with which to fill in the area drawn by the turtle.
     """
+
+    # move to starting position
+    pick_up_and_move_turtle(t, start_x, start_y)
+    
+    # need the smaller angle for the star shape
+    smaller_angle = angle - 72
+    
+    # set up the fill
+    t.fillcolor(fill_color)
+    t.begin_fill()
+    
+    # draw all 5 points of the star
+    for i in range(5):
+        print_turtle_position(t)  # print location before each point
+        
+        # draw the first line of the point
+        t.forward(length)
+        
+        # turn the smaller angle first
+        if initial_rotation_direction == 'left':
+            t.left(smaller_angle)
+        else:
+            t.right(smaller_angle)
+        
+        # draw the second line of the point
+        t.forward(length)
+        
+        # turn the larger angle to get ready for the next point
+        if initial_rotation_direction == 'left':
+            t.right(angle)
+        else:
+            t.left(angle)
+    
+    t.end_fill()
+    
